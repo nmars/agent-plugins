@@ -26,6 +26,11 @@ else
     echo "Using cached PipelineRun ${PLR_FILE}"
 fi
 
+if [[ $(yq '.items | length' "$PLR_FILE") -eq 0 ]]; then
+    echo "Error: PipelineRun '${PLR_NAME}' not found in namespace '${TENANT}'"
+    exit 1
+fi
+
 bold_in=$(tput smso 2>/dev/null || true)
 bold_out=$(tput rmso 2>/dev/null || true)
 red=$(tput setaf 1 2>/dev/null || true)

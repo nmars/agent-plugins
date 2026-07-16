@@ -54,6 +54,11 @@ echo "${yellow}=== PipelineRun ===${reset}"
 fetch_or_cached "$PLR_FILE" "PipelineRun ${PLR_NAME}" \
     oc ka get -n "$TENANT" --limit 1 pipelinerun "$PLR_NAME" -o yaml
 
+if [[ $(yq '.items | length' "$PLR_FILE") -eq 0 ]]; then
+    echo "Error: PipelineRun '${PLR_NAME}' not found in namespace '${TENANT}'"
+    exit 1
+fi
+
 # --- TaskRuns, Pods, container logs ---
 echo
 echo "${yellow}=== TaskRuns ===${reset}"
