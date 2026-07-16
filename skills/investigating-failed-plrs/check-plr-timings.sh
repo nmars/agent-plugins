@@ -15,6 +15,10 @@ fi
 
 TENANT="$1"
 PLR_NAME="$2"
+if [[ ! "$PLR_NAME" =~ ^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$ ]]; then
+    echo "Error: PLR_NAME contains invalid characters: ${PLR_NAME}"
+    exit 1
+fi
 CACHE_DIR="${PLR_CACHE_DIR:-./collected-data}"
 if [[ "$CACHE_DIR" =~ [^0-9a-zA-Z._/-] ]]; then
     echo "Error: CACHE_DIR contains disallowed characters: ${CACHE_DIR}"
