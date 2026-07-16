@@ -19,6 +19,10 @@ fi
 TENANT="$1"
 PLR_NAME="$2"
 CACHE_DIR="${PLR_CACHE_DIR:-./collected-data}"
+if [[ "$CACHE_DIR" =~ [^0-9a-zA-Z._/-] ]]; then
+    echo "Error: CACHE_DIR contains disallowed characters: ${CACHE_DIR}"
+    exit 1
+fi
 mkdir -p "$CACHE_DIR"
 PLR_FILE="${CACHE_DIR}/collected-pipelinerun-${PLR_NAME}.yaml"
 
