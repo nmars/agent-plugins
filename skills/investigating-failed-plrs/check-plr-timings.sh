@@ -29,7 +29,13 @@ PLR_FILE="${CACHE_DIR}/collected-pipelinerun-${PLR_NAME}.yaml"
 
 if ! [[ -r "$PLR_FILE" ]]; then
     echo "Fetching PipelineRun ${PLR_NAME}..."
-    oc ka get -n "$TENANT" --limit 1 pipelinerun "$PLR_NAME" -o yaml > "$PLR_FILE"
+    if oc ka get -n "$TENANT" --limit 1 pipelinerun "$PLR_NAME" -o yaml > "${PLR_FILE}.tmp"; then
+        mv "${PLR_FILE}.tmp" "$PLR_FILE"
+    else
+        rm -f "${PLR_FILE}.tmp"
+        echo "Error: Failed to fetch PipelineRun '${PLR_NAME}'"
+        exit 1
+    fi
 else
     echo "Using cached PipelineRun ${PLR_FILE}"
 fi
@@ -83,7 +89,13 @@ for tr_name in $(yq '.items[0].status.childReferences[] | select(.kind == "TaskR
 
     if ! [[ -r "$tr_file" ]]; then
         echo " Fetching TaskRun ${tr_name}..."
-        oc ka get -n "$TENANT" --limit 1 taskrun "$tr_name" -o yaml > "$tr_file"
+        if oc ka get -n "$TENANT" --limit 1 taskrun "$tr_name" -o yaml > "${tr_file}.tmp"; then
+            mv "${tr_file}.tmp" "$tr_file"
+        else
+            rm -f "${tr_file}.tmp"
+            echo " Warning: Failed to fetch TaskRun ${tr_name}, skipping"
+            continue
+        fi
     fi
 
     tr_task=$(yq '.items[0].metadata.labels["tekton.dev/pipelineTask"]' "$tr_file")

@@ -47,12 +47,13 @@ fetch_or_cached() {
     fi
 
     echo "   Fetching ${label}..."
-    if "$@" > "$file" 2>/dev/null; then
+    if "$@" > "${file}.tmp" 2>/dev/null; then
+        mv "${file}.tmp" "$file"
         echo "   ${green}Saved: ${file}${reset}"
         return 0
     else
         echo "   ${red}Failed to fetch ${label}${reset}"
-        rm -f "$file"
+        rm -f "${file}.tmp"
         return 1
     fi
 }
