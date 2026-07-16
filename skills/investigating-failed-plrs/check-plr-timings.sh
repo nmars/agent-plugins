@@ -155,7 +155,7 @@ for tr_name in $(yq '.items[0].status.childReferences[] | select(.kind == "TaskR
         first_step_start=$(yq '.items[0].status.steps[].terminated.startedAt | select(. != null)' "$tr_file" | sort | head -n 1)
         if [[ -n "$first_step_start" && "$first_step_start" != "null" ]]; then
             tr_wait=$(( $(date -d "$first_step_start" +%s) - $(date -d "$tr_created" +%s) ))
-            (( stat_waiting_time += tr_wait ))
+            stat_waiting_time=$(( stat_waiting_time + tr_wait ))
             echo "     ${yellow}TaskRun wait time (creation to first step): ${tr_wait}s${reset}"
         fi
     fi
@@ -166,7 +166,7 @@ done
 if [[ "$pr_created" != "null" ]] && $trs_processed; then
     pr_created_epoch=$(date -d "$pr_created" +%s)
     plr_wait=$(( trs_earliest_start - pr_created_epoch ))
-    (( stat_waiting_time += plr_wait ))
+    stat_waiting_time=$(( stat_waiting_time + plr_wait ))
     echo " ⤷ ${yellow}PipelineRun wait time (creation to first TaskRun): ${plr_wait}s${reset}"
 fi
 
