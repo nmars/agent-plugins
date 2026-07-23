@@ -16,8 +16,8 @@ Work through these steps interactively — ask user for input when needed, skip 
 
 ## Prerequisites
 
-- `oc` CLI with KubeArchive plugin installed (https://kubearchive.github.io/kubearchive/main/cli/installation.html)
-- `yq` and `jq` available
+- `oc` CLI with KubeArchive plugin installed - check this with `oc ka version` (if not, let user install using <https://kubearchive.github.io/kubearchive/main/cli/installation.html>)
+- `yq` and `jq` available - check with `yq --version` and `jq --version`
 - Logged into the target Konflux cluster (`oc whoami --show-server`)
 
 ## Step 1: Identify Cluster and Tenant
