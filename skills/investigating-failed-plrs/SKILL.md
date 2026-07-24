@@ -1,10 +1,10 @@
 ---
 name: investigating-failed-plrs
 description: >
-  Investigate why a specific Konflux PipelineRun failed. Drills through PLR
-  conditions, failed TaskRuns, pod status, container exit codes, and timing.
-  Use when user asks "why did my build fail?", "PLR failed", "pipeline error",
-  or invokes /investigating-failed-plrs.
+  Use when you want to investigate why a specific Konflux PipelineRun failed.
+  Drills through PLR conditions, failed TaskRuns, pod status, container exit
+  codes, and timing. Use when user asks "why did my build fail?", "PLR failed",
+  "pipeline error", or invokes /investigating-failed-plrs.
 allowed-tools: Bash(oc get:*), Bash(oc ka get:*), Bash(oc ka logs:*), Bash(yq:*), Bash(jq:*), Bash(cat:*), Bash(ls:*), Bash(mkdir:*), Bash(~/.claude/skills/investigating-failed-plrs/:*), Bash(.claude/skills/investigating-failed-plrs/:*)
 ---
 

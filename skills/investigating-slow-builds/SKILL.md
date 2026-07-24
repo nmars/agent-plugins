@@ -1,7 +1,7 @@
 ---
 name: investigating-slow-builds
 description: >
-  Investigate why Konflux builds/pipeline runs are slow.
+  Use when you want to investigate why Konflux builds/pipeline runs are slow.
   Use when user asks "why are my builds slow?", "pipeline runs taking long",
   "slow PLR", or invokes /investigating-slow-builds.
 allowed-tools: Bash(oc get:*), Bash(oc ka get:*), Bash(yq:*), Bash(jq:*), Bash(cat:*), Bash(date:*), Bash(command:*), Bash(prometheus-cli:*)
