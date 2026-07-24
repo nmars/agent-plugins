@@ -175,4 +175,4 @@ if [[ "$pr_created" != "null" ]] && $trs_processed; then
 fi
 
 echo
-echo "${blue}Total waiting time: ${stat_waiting_time}s${reset}"
+echo "${blue}Cumulative waiting time: ${stat_waiting_time}s${reset}"
