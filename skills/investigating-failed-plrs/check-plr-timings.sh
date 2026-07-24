@@ -14,6 +14,10 @@ if [[ $# -ne 2 ]]; then
 fi
 
 TENANT="$1"
+if [[ ! "$TENANT" =~ ^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$ ]]; then
+    echo "Error: TENANT contains invalid characters: ${TENANT}"
+    exit 1
+fi
 PLR_NAME="$2"
 if [[ ! "$PLR_NAME" =~ ^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$ ]]; then
     echo "Error: PLR_NAME contains invalid characters: ${PLR_NAME}"
